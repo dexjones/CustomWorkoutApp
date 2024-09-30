@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CustomWorkoutApp</string>
+    <string name="welcome_to_your_workout">Welcome to Your Workout!</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_age">Enter your age</string>
+    <string name="enter_your_weight_lbs">Enter your weight (lbs)</string>
+    <string name="inch_symbol">\"</string>
+    <string name="inches">Inches</string>
+    <string name="enter_your_fitness_goal">Enter your fitness goal</string>
+    <string name="save">Save</string>
+    <string name="app_logo">App logo</string>
+    <string name="feet">Feet</string>
+</resources>

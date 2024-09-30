@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_workout_plan"
+        android:icon="@drawable/barbell_icon"
+        android:title="Workouts" />
+    <item
+        android:id="@+id/navigation_log"
+        android:icon="@drawable/document_icon"
+        android:title="Logs" />
+    <item
+        android:id="@+id/navigation_progress"
+        android:icon="@drawable/progress_icon"
+        android:title="Progress" />
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/profile_icon"
+        android:title="Profile" />
+</menu>
