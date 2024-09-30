@@ -18,6 +18,8 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             val sessionManager = SessionManager(this)
 
+            sessionManager.logout()
+
             if (sessionManager.isLoggedIn()) {
                 // User is already logged in, redirect to HomeActivity
                 val intent = Intent(this, HomeActivity::class.java)

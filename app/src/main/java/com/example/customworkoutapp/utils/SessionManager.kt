@@ -23,6 +23,9 @@ class SessionManager(context: Context) {
     fun isLoggedIn(): Boolean {
         return prefs.getBoolean(USER_LOGGED_IN, false)
     }
+    fun logout() {
+        prefs.edit().clear().apply() // Clears the session, forcing a logout
+    }
 
     // Clear session (for logging out)
     fun clearSession() {
