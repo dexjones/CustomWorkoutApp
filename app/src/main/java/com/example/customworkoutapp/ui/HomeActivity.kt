@@ -1,5 +1,7 @@
 package com.example.customworkoutapp.ui
 
+import com.example.customworkoutapp.utils.DatabaseHelper
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -17,7 +19,10 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val dbHelper = DatabaseHelper(this)
+        dbHelper.openDatabase()
 
+        val db = SQLiteDatabase.openDatabase(dbHelper.getDatabasePath(), null, SQLiteDatabase.OPEN_READWRITE)
         // Handle navigation item selection
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

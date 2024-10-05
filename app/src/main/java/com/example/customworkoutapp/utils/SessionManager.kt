@@ -5,11 +5,17 @@ import android.content.SharedPreferences
 
 class SessionManager(context: Context) {
 
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+    private val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
     private var prefs: SharedPreferences =
         context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
 
     companion object {
         const val USER_LOGGED_IN = "user_logged_in"
+        private const val PREF_NAME = "UserSession"
+        private const val KEY_EMAIL = "userEmail"
+        private const val KEY_IS_LOGGED_IN = "isLoggedIn"
     }
 
     // Save the login status
@@ -18,18 +24,20 @@ class SessionManager(context: Context) {
         editor.putBoolean(USER_LOGGED_IN, isLoggedIn)
         editor.apply()
     }
+    fun saveUserEmail(email: String) {
+        editor.putString(KEY_EMAIL, email)
+        editor.putBoolean(KEY_IS_LOGGED_IN, true) // Mark user as logged in
+        editor.apply()
+    }
+    fun getUserEmail(): String? {
+        return sharedPreferences.getString(KEY_EMAIL, null)
+    }
 
     // Check if the user is logged in
     fun isLoggedIn(): Boolean {
-        return prefs.getBoolean(USER_LOGGED_IN, false)
+        return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
     }
     fun logout() {
-        prefs.edit().clear().apply() // Clears the session, forcing a logout
-    }
-
-    // Clear session (for logging out)
-    fun clearSession() {
-        val editor = prefs.edit()
         editor.clear()
         editor.apply()
     }

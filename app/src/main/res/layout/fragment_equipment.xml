@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/title_equipment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What equipment is available to you?"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- CheckBox for Power Rack -->
+    <CheckBox
+        android:id="@+id/checkbox_power_rack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/power_rack"
+        app:layout_constraintTop_toBottomOf="@+id/title_equipment"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp" />
+
+    <!-- CheckBox for Dumbbells -->
+    <CheckBox
+        android:id="@+id/checkbox_dumbbells"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dumbbells"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_power_rack"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp" />
+
+    <!-- CheckBox for Barbell -->
+    <CheckBox
+        android:id="@+id/checkbox_barbell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/barbell"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_dumbbells"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp" />
+
+    <!-- CheckBox for Bench -->
+    <CheckBox
+        android:id="@+id/checkbox_bench"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bench"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_barbell"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp" />
+
+    <!-- CheckBox for Resistance Bands -->
+    <CheckBox
+        android:id="@+id/checkbox_resistance_bands"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/resistance_bands"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_bench"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp" />
+
+    <!-- CheckBox for Machines -->
+    <CheckBox
+        android:id="@+id/checkbox_machines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/machines"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_resistance_bands"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp" />
+
+    <!-- CheckBox for Cable Weights -->
+    <CheckBox
+        android:id="@+id/checkbox_cable_weights"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cable_weights"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_machines"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp" />
+
+    <!-- CheckBox for Smith Machine -->
+    <CheckBox
+        android:id="@+id/checkbox_smith_machine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/smith_machine"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_cable_weights"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp" />
+
+    <!-- Next Button -->
+    <Button
+        android:id="@+id/btn_next_equipment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

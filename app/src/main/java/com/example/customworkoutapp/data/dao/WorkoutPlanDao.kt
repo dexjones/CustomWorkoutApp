@@ -9,9 +9,13 @@ import com.example.customworkoutapp.data.entities.WorkoutPlan
 
 @Dao
 interface WorkoutPlanDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWorkoutPlan(workoutPlan: WorkoutPlan)
 
-    @Query("SELECT * FROM workout_plans WHERE userId = :userId")
-    fun getWorkoutPlansByUser(userId: Int): LiveData<List<WorkoutPlan>>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertWorkoutPlans(workoutPlans: List<WorkoutPlan>)
+
+    @Query("SELECT * FROM workout_plan WHERE userId = :userId")
+    fun getWorkoutPlansForUser(userId: Int): LiveData<List<WorkoutPlan>>
 }

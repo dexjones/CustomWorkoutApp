@@ -13,5 +13,8 @@ interface WorkoutDao {
     suspend fun insertWorkout(workout: Workout)
 
     @Query("SELECT * FROM workouts WHERE userId = :userId")
+    fun getWorkoutPlan(userId: Int): LiveData<List<Workout>>
+
+    @Query("SELECT * FROM workouts WHERE userId = :userId")
     fun getWorkoutsByUser(userId: Int): LiveData<List<Workout>>
 }
