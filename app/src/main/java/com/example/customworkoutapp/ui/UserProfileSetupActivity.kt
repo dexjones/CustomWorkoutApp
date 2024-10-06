@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.customworkoutapp.R
 import com.example.customworkoutapp.data.AppDatabase
+import com.example.customworkoutapp.data.repository.ExerciseRepository
 import com.example.customworkoutapp.data.repository.GoalRepository
 import com.example.customworkoutapp.ui.fragments.IntentFragment
 import com.example.customworkoutapp.viewmodel.UserViewModel
@@ -32,8 +33,11 @@ class UserProfileSetupActivity : AppCompatActivity() {
         val goalDao = AppDatabase.getDatabase(application).goalDao()
         val goalRepository = GoalRepository(goalDao)
 
+        val exerciseDao = AppDatabase.getDatabase(application).exerciseDao()
+        val exerciseRepository = ExerciseRepository(exerciseDao)
+
         // Initialize the GoalViewModel using the custom factory
-        val goalViewModelFactory = GoalViewModelFactory(goalRepository)
+        val goalViewModelFactory = GoalViewModelFactory(goalRepository, exerciseRepository)
         goalViewModel = ViewModelProvider(this, goalViewModelFactory).get(GoalViewModel::class.java)
 
         // Initialize UserViewModel as usual

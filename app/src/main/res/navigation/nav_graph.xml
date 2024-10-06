@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/workoutPlanFragment">
+
+    <!-- Workout Plan Fragment -->
+    <fragment
+        android:id="@+id/workoutPlanFragment"
+        android:name="com.example.customworkoutapp.ui.fragments.WorkoutPlanFragment"
+        android:label="Workout Plan"
+        tools:layout="@layout/fragment_workout_plan" />
+
+    <!-- Workout Log Fragment -->
+    <fragment
+        android:id="@+id/workoutLogFragment"
+        android:name="com.example.customworkoutapp.ui.fragments.WorkoutLogFragment"
+        android:label="Workout Log"
+        tools:layout="@layout/fragment_workout_log" />
+
+    <!-- Progress Tracking Fragment -->
+    <fragment
+        android:id="@+id/progressTrackingFragment"
+        android:name="com.example.customworkoutapp.ui.fragments.ProgressTrackingFragment"
+        android:label="Progress Tracking"
+        tools:layout="@layout/fragment_progress_tracking" />
+
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.customworkoutapp.ui.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>

@@ -74,6 +74,8 @@ class SignUpActivity : AppCompatActivity() {
                 val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                 val editor = sharedPreferences.edit()
                 editor.putString("userId", userId.toString()) // Store userId as a string
+                editor.putString("userEmail", user.email) // Store the email in SharedPreferences
+
                 editor.apply()
 
                 runOnUiThread {

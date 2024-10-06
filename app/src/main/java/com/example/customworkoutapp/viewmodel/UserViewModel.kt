@@ -14,6 +14,7 @@ import com.example.customworkoutapp.data.repository.UserRepository
 import com.example.customworkoutapp.data.repository.WorkoutPlanRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
     private val userRepository: UserRepository
@@ -29,9 +30,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         workoutPlanRepository = WorkoutPlanRepository(workoutPlanDao)
     }
 
-    // Fetch user by email
     suspend fun getUserByEmail(email: String): User? {
-        return userRepository.getUserByEmail(email)
+        return withContext(Dispatchers.IO) {
+            userRepository.getUserByEmail(email)
+        }
     }
 
     // Insert or update user

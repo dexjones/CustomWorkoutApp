@@ -3,7 +3,6 @@ package com.example.customworkoutapp.ui.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,48 +61,32 @@ class FrequencyFragment : Fragment() {
     }
 
     private fun saveGoalAndWorkoutPlan() {
-        // Fetch userId dynamically from SharedPreferences and convert back to Long
+        // Fetch userId dynamically from SharedPreferences
         val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         val userIdString = sharedPreferences.getString("userId", null)
+        val userId = userIdString?.toIntOrNull() ?: -1
 
-        // Ensure userId is not null and convert it to Long
-        if (userIdString != null) {
-            val userId = userIdString.toLongOrNull()
+        if (userId != -1) {
+            // Create the goal using GoalViewModel
+            val goal = goalViewModel.createGoal(userId)  // Pass userId here
 
-            // Proceed only if userId conversion is successful
-            if (userId != null && userId > 0) {
-                // Create the goal from GoalViewModel
-                val goal = goalViewModel.createGoal()
+            // Save the goal and workout plan using UserViewModel
+            CoroutineScope(Dispatchers.IO).launch {
+                val goalId = userViewModel.insertGoal(goal)
 
-                // Save the goal and workout plan using UserViewModel
-                CoroutineScope(Dispatchers.IO).launch {
-                    try {
-                        // Insert the goal into the database and get the auto-generated goalId
-                        val goalId = userViewModel.insertGoal(goal)
+                if (goalId > 0L) {
+                    // Generate workout plans associated with the goal and user
+                    val workoutPlans = goalViewModel.generateWorkoutPlans(userId, goalId.toInt(), goal)
 
-                        // Ensure that the goal was inserted successfully by checking if goalId is greater than 0
-                        if (goalId > 0L) {
-                            // Generate workout plans associated with the goal and user
-                            val workoutPlans = goalViewModel.generateWorkoutPlans(userId.toInt(), goalId.toInt())
+                    // Insert the workout plans after the goal is successfully inserted
+                    userViewModel.insertWorkoutPlans(workoutPlans)
 
-                            // Log the userId and goalId for debugging
-                            Log.d("WorkoutPlanInsert", "Inserting WorkoutPlan with userId: $userId, goalId: $goalId")
-
-                            // Insert the workout plans after the goal is successfully inserted
-                            userViewModel.insertWorkoutPlans(workoutPlans)
-
-                            // Navigate to HomeActivity after saving
-                            navigateToHome()
-                        }
-                    } catch (e: Exception) {
-                        Log.e("SaveGoalError", "Error saving goal and workout plan", e)
-                    }
+                    // Navigate to HomeActivity after saving
+                    navigateToHome()
                 }
-            } else {
-                Log.e("FrequencyFragment", "Invalid User ID. Cannot save goal and workout plan.")
             }
         } else {
-            Log.e("FrequencyFragment", "User ID not found. Cannot save goal and workout plan.")
+            // Handle the error case where userId is not valid
         }
     }
 

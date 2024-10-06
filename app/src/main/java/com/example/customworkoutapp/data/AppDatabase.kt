@@ -4,14 +4,35 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.customworkoutapp.data.entities.*
 import com.example.customworkoutapp.data.dao.*
+import com.example.customworkoutapp.data.entities.Equipment
+import com.example.customworkoutapp.data.entities.Exercise
+import com.example.customworkoutapp.data.entities.ProgressLog
+import com.example.customworkoutapp.data.entities.ProgressionVariation
+import com.example.customworkoutapp.data.entities.RegressionVariation
+import com.example.customworkoutapp.data.entities.TrainingMode
+import com.example.customworkoutapp.data.entities.Type
+import com.example.customworkoutapp.data.entities.User
+import com.example.customworkoutapp.data.entities.Workout
+import com.example.customworkoutapp.data.entities.WorkoutPlan
+import com.example.customworkoutapp.data.entities.ExerciseEquipment
+import com.example.customworkoutapp.data.entities.ExerciseMuscleGroup
+import com.example.customworkoutapp.data.entities.ExerciseProgressionVariation
+import com.example.customworkoutapp.data.entities.ExerciseRegressionVariation
+import com.example.customworkoutapp.data.entities.ExerciseTrainingMode
+import com.example.customworkoutapp.data.entities.ExerciseType
+import com.example.customworkoutapp.data.entities.Goal
+import com.example.customworkoutapp.data.entities.MuscleGroup
+import com.example.customworkoutapp.data.entities.ExerciseWithSets
+
+
 
 @Database(
     entities = [
         User::class,
         Workout::class,
         Exercise::class,
+        ExerciseWithSets::class,
         ProgressLog::class,
         Equipment::class,
         ExerciseEquipment::class,
@@ -26,9 +47,9 @@ import com.example.customworkoutapp.data.dao.*
         RegressionVariation::class,
         TrainingMode::class,
         Type::class,
-        WorkoutPlan::class
+        WorkoutPlan::class,
     ],
-    version = 1, // Increment this version whenever you make schema changes
+    version = 4, // Increment this version whenever you make schema changes
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
