@@ -6,19 +6,30 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.customworkoutapp.data.AppDatabase
 import com.example.customworkoutapp.data.entities.Exercise
-import com.example.customworkoutapp.data.dao.ExerciseDao
+import com.example.customworkoutapp.data.repository.ExerciseRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
-    private val exerciseDao: ExerciseDao = AppDatabase.getDatabase(application).exerciseDao()
 
-    fun getAllExercises(): LiveData<List<Exercise>> {
-        return exerciseDao.getAllExercises()
+    private val repository: ExerciseRepository
+    val allExercises: LiveData<List<Exercise>>
+
+    init {
+        val exerciseDao = AppDatabase.getDatabase(application).exerciseDao()
+        repository = ExerciseRepository(exerciseDao)
+        allExercises = repository.getAllExercises()
     }
 
-    fun insertExercise(exercise: Exercise) {
-        viewModelScope.launch {
-            exerciseDao.insertExercise(exercise)
-        }
+    fun insert(exercise: Exercise) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insertExercise(exercise)
+    }
+
+    fun deleteExerciseById(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteExerciseById(id)
+    }
+
+    suspend fun getExerciseById(id: Int): Exercise? {
+        return repository.getExerciseById(id)
     }
 }

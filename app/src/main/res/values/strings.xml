@@ -10,4 +10,13 @@
     <string name="save">Save</string>
     <string name="app_logo">App logo</string>
     <string name="feet">Feet</string>
+    <string name="power_rack">Power Rack</string>
+    <string name="dumbbells">Dumbbells</string>
+    <string name="barbell">Barbell</string>
+    <string name="bench">Bench</string>
+    <string name="resistance_bands">Resistance Bands</string>
+    <string name="machines">Machines</string>
+    <string name="cable_weights">Cable Weights</string>
+    <string name="smith_machine">Smith Machine</string>
+    <string name="next">Next</string>
 </resources>

@@ -1,24 +1,30 @@
 package com.example.customworkoutapp.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.customworkoutapp.data.AppDatabase
 import com.example.customworkoutapp.data.entities.WorkoutPlan
-import com.example.customworkoutapp.data.dao.WorkoutPlanDao
+import com.example.customworkoutapp.data.repository.WorkoutPlanRepository
 import kotlinx.coroutines.launch
 
-class WorkoutPlanViewModel(application: Application) : AndroidViewModel(application) {
-    private val workoutPlanDao: WorkoutPlanDao = AppDatabase.getDatabase(application).workoutPlanDao()
+class WorkoutPlanViewModel(private val workoutPlanRepository: WorkoutPlanRepository) : ViewModel() {
 
-    fun getWorkoutPlans(userId: Int): LiveData<List<WorkoutPlan>> {
-        return workoutPlanDao.getWorkoutPlansByUser(userId)
+    // Fetch workout plans based on userId
+    fun getWorkoutPlansForUser(userId: Int): LiveData<List<WorkoutPlan>> {
+        return workoutPlanRepository.getWorkoutPlansForUser(userId)
     }
 
+    // Insert workout plans (used when generating a workout plan)
     fun insertWorkoutPlan(workoutPlan: WorkoutPlan) {
         viewModelScope.launch {
-            workoutPlanDao.insertWorkoutPlan(workoutPlan)
+            workoutPlanRepository.insertWorkoutPlan(workoutPlan)
+        }
+    }
+
+    // Insert multiple workout plans
+    fun insertWorkoutPlans(workoutPlans: List<WorkoutPlan>) {
+        viewModelScope.launch {
+            workoutPlanRepository.insertWorkoutPlans(workoutPlans)
         }
     }
 }

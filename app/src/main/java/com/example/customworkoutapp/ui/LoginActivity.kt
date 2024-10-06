@@ -1,10 +1,12 @@
 package com.example.customworkoutapp.ui
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.customworkoutapp.R
@@ -38,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
         // Initialize the Room database
         database = AppDatabase.getDatabase(this)
 
-        //Initialize userViewModel
+        // Initialize userViewModel
         userViewModel = UserViewModel(application)
 
         // Handle login button click
@@ -47,10 +49,7 @@ class LoginActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             if (validateLoginInput(email, password)) {
-                // Save login status
-                val sessionManager = SessionManager(this)
-                sessionManager.saveLoginStatus(true)
-
+                // Attempt login
                 loginUser(email, password)
             } else {
                 Toast.makeText(this, "Please enter valid credentials", Toast.LENGTH_SHORT).show()
@@ -80,6 +79,11 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
+            } else if (user == null) {
+                // User not found, show dialog to sign up or retry
+                runOnUiThread {
+                    showEmailNotFoundDialog(email)
+                }
             } else {
                 // Invalid credentials
                 runOnUiThread {
@@ -89,4 +93,28 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // Show dialog if email is not found
+    private fun showEmailNotFoundDialog(email: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Account Not Found")
+        builder.setMessage("There's no account associated with the email \"$email\". Would you like to sign up or try another email?")
+
+        builder.setPositiveButton("Sign Up") { dialog, _ ->
+            // Go to sign-up activity with the email pre-filled
+            val intent = Intent(this, SignUpActivity::class.java)
+            intent.putExtra("email", email) // Pass the email to the sign-up activity
+            startActivity(intent)
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Try Again") { dialog, _ ->
+            // Allow user to try logging in again with a different email
+            emailEditText.text.clear()
+            passwordEditText.text.clear()
+            dialog.dismiss()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
 }

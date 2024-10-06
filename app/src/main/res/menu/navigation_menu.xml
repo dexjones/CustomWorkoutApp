@@ -3,11 +3,11 @@
     <item
         android:id="@+id/navigation_workout_plan"
         android:icon="@drawable/barbell_icon"
-        android:title="Workouts" />
+        android:title="Workout Plan" />
     <item
         android:id="@+id/navigation_log"
         android:icon="@drawable/document_icon"
-        android:title="Logs" />
+        android:title="Workout Log" />
     <item
         android:id="@+id/navigation_progress"
         android:icon="@drawable/progress_icon"

@@ -1,5 +1,6 @@
 package com.example.customworkoutapp.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -29,6 +30,10 @@ class SignUpActivity : AppCompatActivity() {
         confirmPasswordEditText = findViewById(R.id.et_confirm_password_sign_up)
         createAccountButton = findViewById(R.id.btn_create_account)
 
+        val preFilledEmail = intent.getStringExtra("email")
+        if (!preFilledEmail.isNullOrEmpty()) {
+            emailEditText.setText(preFilledEmail)
+        }
         // Initialize Room Database
         database = AppDatabase.getDatabase(this)
 
@@ -63,7 +68,15 @@ class SignUpActivity : AppCompatActivity() {
                 val hashedPassword = User.hashPassword(password, salt)
                 val user = User(email = email, passwordHash = hashedPassword, salt = salt, name = "")
 
-                database.userDao().insertUser(user)
+                val userId = database.userDao().insertUser(user)
+
+                // Store the userId in SharedPreferences for later use
+                val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("userId", userId.toString()) // Store userId as a string
+                editor.putString("userEmail", user.email) // Store the email in SharedPreferences
+
+                editor.apply()
 
                 runOnUiThread {
                     val intent = Intent(this@SignUpActivity, UserProfileSetupActivity::class.java)
